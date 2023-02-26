@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Photo Gallery</title>
+	<style>
+		.gallery {
+            /*öğeleri yatay bir satırda hizalar*/
+			display: flex; 
+            /*galerinin içindeki öğeler satırın sonuna geldiğinde alt satura geçer*/
+			flex-wrap: wrap;
+            /*öğeler arasında boşluk bırakır ve öğeleri sayfanın sol ve sağ
+            kenarlarına hizalar*/
+			justify-content: space-between;
+            /*galerinin içindeki öğeleri dikey olarak ortalar*/
+			align-items: center;
+            /*öğelerin sağ,sol,alt ve üst kısımlarından 20px boşluk bırakır*/
+			margin: 20px;
+		}
+
+
+        /*galeri içindeki resimlerin stili*/
+		.gallery img {
+           /*resimlerin genişliğinin galerinin %30'u kadar olmasını sağlar*/ 
+			width: 30%;
+            /*resimlerin altına 20px boşluk bırakır*/
+			margin-bottom: 20px;
+            
+		}
+	</style>
+</head>
+<body bgcolor="#947197">
+
+	<h1 style="text-align:center; color:white;">Photo Gallery</h1>
+
+    <!--div-->
+	<div class="gallery"></div>
+
+    <!--Js-->
+	<script>
+		// galeri divini seçelim
+		const gallery = document.querySelector('.gallery');
+
+		// fotoğrafların URL'si
+		const photoURL = 'https://source.unsplash.com/random/200x200';
+
+		// resimlerin sütun ve satır sayısı
+		const columnCount = 3;
+		const rowCount = 5;
+
+		// galeriye fotoğrafları ekleme fonksiyonu
+		function addPhotos() {
+			// galeri içeriğini temizle
+			gallery.innerHTML = '';
+
+			// sütun ve satır numaralarını hesapla
+			const totalPhotos = columnCount * rowCount;
+			let photoIndex = 1;
+
+			// fotoğraf etiketlerini oluştur
+			for (let row = 0; row < rowCount; row++) {
+				for (let column = 0; column < columnCount; column++) {
+                    //her resim için bir img öğesi oluşturur
+					const img = document.createElement('img');
+
+                    //her resim için bir URL oluşturur ve resmin kaynağını belirtir
+					img.src = `${photoURL}&${photoIndex}`;
+
+                    //resmin alternatif metni:resim yüklenemediğinde görüntülenir
+					img.alt = `Photo ${photoIndex}`;
+
+                    //her img öğesini 'gallery' adlı HTML öğesine ekler
+                    //Bu öğe galerinin ana bileşenidir
+					gallery.appendChild(img);
+
+                    //her resim için benzersiz bir fotoğraf indexi oluşturur
+                    //her bir döngüde 1 artırılır
+					photoIndex++;
+				}
+			}
+		}
+
+		// sayfa yüklendiğinde fotoğrafları ekle
+		addPhotos();
+	</script>
+</body>
+</html>
